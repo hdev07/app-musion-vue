@@ -1,0 +1,37 @@
+{
+  "name": "app.musion.day",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.2.96",
+    "dotenv": "^16.1.1",
+    "feather-icons": "^4.29.0",
+    "pinia": "^2.0.36",
+    "vee-validate": "^4.9.5",
+    "vue": "^3.3.4",
+    "vue-feather": "^2.0.0",
+    "vue-router": "^4.2.0",
+    "vuetify": "^3.3.2"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/eslint-config-prettier": "^7.1.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.39.0",
+    "eslint-plugin-vue": "^9.11.0",
+    "postcss": "^8.4.23",
+    "prettier": "^2.8.8",
+    "tailwindcss": "^3.3.2",
+    "vite": "^4.3.5",
+    "vite-plugin-pwa": "^0.16.3"
+  }
+}
