@@ -9,7 +9,6 @@ lerna-debug.log*
 package-lock.json*
 
 node_modules
-dev-dist
 .DS_Store
 dist
 dist-ssr
