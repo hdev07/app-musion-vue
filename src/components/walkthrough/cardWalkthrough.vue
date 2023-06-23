@@ -52,7 +52,7 @@ const createAccount = () => {
           <p class="text-center text-xl py-2 mb-1">{{ title }}</p>
           <p class="text-center text-md py-1 my-0 mx-8">{{ desc }}</p>
         </div>
-        <div class="my-2 flex justify-evenly mx-40">
+        <div class="my-2 mx-auto flex justify-evenly w-1/6">
           <div
             :class="step === 1 ? 'bg-primary' : 'bg-white'"
             class="rounded-full w-2 h-2 my-2"
@@ -71,7 +71,7 @@ const createAccount = () => {
           class="flex justify-between m-8 items-center"
         >
           <RouterLink to="/signin" class="text-xs"> Saltar </RouterLink>
-          <div class="w-2/5 justify-end">
+          <div class="flex w-2/5 justify-end">
             <v-btn color="primary" variant="outlined" rounded @click="nextStep">
               Siguiente
             </v-btn>
