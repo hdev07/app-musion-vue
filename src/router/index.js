@@ -19,8 +19,8 @@ const routes = [
     component: () => import('../views/RegisterView.vue')
   },
   {
-    path: '/walkthough',
-    name: 'walkthough',
+    path: '/walkthrough',
+    name: 'walkthrough',
     component: () => import('../views/WalkthroughView.vue')
   },
   // Ruta comodín para capturar todas las URLs no encontradas
