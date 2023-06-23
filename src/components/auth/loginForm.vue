@@ -89,7 +89,10 @@ const resetForm = () => {
           </div>
           <div class="flex justify-center mt-3">
             <p class="text-sm">¿Olvidaste tu contraseña?</p>
-            <RouterLink to="/reset-password" class="text-sm underline pl-1">
+            <RouterLink
+              to="/reset-password"
+              class="text-sm text-primary underline pl-1"
+            >
               Restablecer la contraseña
             </RouterLink>
           </div>

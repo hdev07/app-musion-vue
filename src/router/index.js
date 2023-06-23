@@ -18,6 +18,11 @@ const routes = [
     name: 'signup',
     component: () => import('../views/RegisterView.vue')
   },
+  {
+    path: '/walkthough',
+    name: 'walkthough',
+    component: () => import('../views/WalkthroughView.vue')
+  },
   // Ruta comodín para capturar todas las URLs no encontradas
   {
     path: '/:catchAll(.*)',

@@ -14,7 +14,7 @@ onMounted(() => {
   setTimeout(() => {
     loading.value = false
     if (device.value === 'smartphone') {
-      router.push('/signin')
+      router.push('/walkthrough')
     }
   }, 1500)
 })
