@@ -12,8 +12,8 @@ import VueFeather from 'vue-feather'
 
 const app = createApp(App)
 
+app.component(VueFeather.name, VueFeather)
 app.use(createPinia())
 app.use(router)
-app.component(VueFeather.name, VueFeather)
 app.use(vuetify)
 app.mount('#app')
