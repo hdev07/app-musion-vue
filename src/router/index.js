@@ -5,11 +5,6 @@ import { useUserStore } from '../stores/authStore'
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
     path: '/signin',
     name: 'signin',
     component: () => import('../views/LoginView.vue')
@@ -30,28 +25,29 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import('../views/HomeView.vue')
+        name: 'home',
+        component: HomeView
       },
       {
-        path: '/news',
+        path: 'news',
         name: 'news',
         component: () => import('../views/NewsView.vue'),
         meta: { requiresAuth: true }
       },
       {
-        path: '/museums',
+        path: 'museums',
         name: 'museums',
         component: () => import('../views/MuseumsView.vue'),
         meta: { requiresAuth: true }
       },
       {
-        path: '/favorites',
+        path: 'favorites',
         name: 'favorites',
         component: () => import('../views/FavoritesView.vue'),
         meta: { requiresAuth: true }
       },
       {
-        path: '/profile',
+        path: 'profile',
         name: 'profile',
         component: () => import('../views/ProfileView.vue'),
         meta: { requiresAuth: true }
@@ -66,7 +62,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.VITE_BASE_URL_APP),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 
