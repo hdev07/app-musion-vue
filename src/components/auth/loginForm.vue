@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import SocialForm from './socialForm.vue'
 import SwitchForm from './switchForm.vue'
-import { useUserStore } from '@/stores/authStore'
+import { useUserStore } from '@/stores/authStore.js'
 
 const from = ref('login')
 const valid = ref(true)
@@ -16,7 +16,7 @@ const emailRules = [
 const password = ref('Qwerty123')
 const passwordRules = [(v) => !!v || 'Contraseña es requerida']
 const form = ref(null)
-const { token, access, refresToken } = useUserStore()
+const userStore = useUserStore()
 
 const validForm = async () => {
   const validValue = await form.value.validate()
@@ -31,7 +31,7 @@ const login = async () => {
       password: password.value
     }
 
-    await access(body)
+    await userStore.access(body)
   } catch (error) {
     console.error(error)
   } finally {
@@ -40,34 +40,32 @@ const login = async () => {
   }
 }
 
-const verMuseums = async () => {
-  try {
-    const { data } = await axios({
-      method: 'GET',
-      url: '/museums',
-      headers: {
-        Authorization: 'Bearer ' + token.value
-      }
-    })
-    console.log('ver museums :>> ', data)
-  } catch (error) {
-    console.log('Bearer + token.value :>> ', 'Bearer ' + token.value)
-    console.error(error)
-  }
-}
+// const verMuseums = async () => {
+//   try {
+//     const { data } = await axios({
+//       method: 'GET',
+//       url: '/museums',
+//       headers: {
+//         Authorization: 'Bearer ' + token.value
+//       }
+//     })
+//     console.log('ver museums :>> ', data)
+//   } catch (error) {
+//     console.log('Bearer + token.value :>> ', 'Bearer ' + token.value)
+//     console.error(error)
+//   }
+// }
 
 const resetForm = () => {
   form.value.reset()
 }
 
-refresToken()
+userStore.refreshToken()
 </script>
 
 <template>
   <div class="h-screen bg-background">
     <p class="text-center text-3xl py-8">Iniciar sesión</p>
-    <p class="text-center text-3xl py-8">token: {{ token }}</p>
-    <pre class="w-100"></pre>
     <div class="fixed bottom-0 w-full h-[60%] rounded-t-[30px] bg-secondary">
       <div>
         <v-form ref="form" v-model="valid">
