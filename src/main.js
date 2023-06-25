@@ -14,7 +14,7 @@ import VueAxios from 'vue-axios'
 
 const app = createApp(App)
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: import.meta.env.VITE_BASE_URL_BACK_END,
   withCredentials: true
 })
 

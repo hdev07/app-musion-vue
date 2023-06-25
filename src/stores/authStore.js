@@ -4,7 +4,7 @@ import axios from 'axios'
 import router from '../router'
 
 const $axios = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: import.meta.env.VITE_BASE_URL_BACK_END,
   withCredentials: true
 })
 

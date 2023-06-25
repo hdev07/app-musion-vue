@@ -1,9 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import NotFoundLayout from '../layouts/NotFoundLayout.vue'
 import { useUserStore } from '../stores/authStore'
 
 const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('../views/HomeView.vue')
+  },
   {
     path: '/signin',
     name: 'signin',
@@ -23,11 +27,6 @@ const routes = [
     path: '/',
     component: () => import('../layouts/NavbarLayout.vue'),
     children: [
-      {
-        path: '',
-        name: 'home',
-        component: HomeView
-      },
       {
         path: 'news',
         name: 'news',
