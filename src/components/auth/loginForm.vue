@@ -59,8 +59,6 @@ const login = async () => {
 const resetForm = () => {
   form.value.reset()
 }
-
-userStore.refreshToken()
 </script>
 
 <template>
