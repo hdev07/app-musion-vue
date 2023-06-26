@@ -18,7 +18,7 @@ export const useUserStore = defineStore('user', () => {
       token.value = data.token
       expiresIn.value = data.expiresIn
       localStorage.setItem('user', true)
-      router.push('/news')
+      router.push({ name: 'home' })
       setTime()
     } catch (error) {
       console.error(error)

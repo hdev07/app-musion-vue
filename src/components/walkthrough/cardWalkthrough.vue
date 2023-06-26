@@ -18,7 +18,7 @@ function nextStep() {
 }
 
 const createAccount = () => {
-  router.push('/signup')
+  router.push({ name: 'signin' })
 }
 </script>
 

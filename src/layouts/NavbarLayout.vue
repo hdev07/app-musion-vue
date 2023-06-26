@@ -1,14 +1,14 @@
 <template>
   <div class="fixed bottom-0 w-full bg-secondary pb-3 mt-3 z-50">
     <div class="flex items-center w-">
-      <RouterLink to="/news" class="w-1/5">
+      <RouterLink to="/home" class="w-1/5">
         <div
           class="mx-1"
           :class="{
-            'text-primary border-t-2 border-primary': activeTab === 'news',
-            'text-white': activeTab !== 'news'
+            'text-primary border-t-2 border-primary': activeTab === 'home',
+            'text-white': activeTab !== 'home'
           }"
-          @click="changeTab('news')"
+          @click="changeTab('home')"
         >
           <div class="mt-3 flex justify-center">
             <vue-feather stroke-width="1" type="grid" />
@@ -91,11 +91,11 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-const activeTab = ref('news')
+const activeTab = ref('home')
 const route = useRoute()
 
 // Actualizar la pestaña activa basada en la ruta actual
-activeTab.value = route.name || 'news'
+activeTab.value = route.name || 'home'
 
 function changeTab(tab) {
   activeTab.value = tab
