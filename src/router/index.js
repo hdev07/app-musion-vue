@@ -28,25 +28,25 @@ const routes = [
     component: () => import('../layouts/NavbarLayout.vue'),
     children: [
       {
-        path: '/news', // Corrección: Agregar una barra (/) al inicio
+        path: '/news',
         name: 'news',
         component: () => import('../views/NewsView.vue'),
         meta: { requiresAuth: true }
       },
       {
-        path: '/museums', // Corrección: Agregar una barra (/) al inicio
+        path: '/museums',
         name: 'museums',
         component: () => import('../views/MuseumsView.vue'),
         meta: { requiresAuth: true }
       },
       {
-        path: '/favorites', // Corrección: Agregar una barra (/) al inicio
+        path: '/favorites',
         name: 'favorites',
         component: () => import('../views/FavoritesView.vue'),
         meta: { requiresAuth: true }
       },
       {
-        path: '/profile', // Corrección: Agregar una barra (/) al inicio
+        path: '/profile',
         name: 'profile',
         component: () => import('../views/ProfileView.vue'),
         meta: { requiresAuth: true }
@@ -76,7 +76,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // si no existe el token (se refrescó el sitio web) v2
-  if (requiredAuth || sessionStorage.getItem('user')) {
+  if (requiredAuth || localStorage.getItem('user')) {
     await userStore.refreshToken()
     if (userStore.token) {
       return next()
