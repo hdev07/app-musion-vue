@@ -28,25 +28,25 @@ const routes = [
     component: () => import('../layouts/NavbarLayout.vue'),
     children: [
       {
-        path: 'news',
+        path: '/news', // Corrección: Agregar una barra (/) al inicio
         name: 'news',
         component: () => import('../views/NewsView.vue'),
         meta: { requiresAuth: true }
       },
       {
-        path: 'museums',
+        path: '/museums', // Corrección: Agregar una barra (/) al inicio
         name: 'museums',
         component: () => import('../views/MuseumsView.vue'),
         meta: { requiresAuth: true }
       },
       {
-        path: 'favorites',
+        path: '/favorites', // Corrección: Agregar una barra (/) al inicio
         name: 'favorites',
         component: () => import('../views/FavoritesView.vue'),
         meta: { requiresAuth: true }
       },
       {
-        path: 'profile',
+        path: '/profile', // Corrección: Agregar una barra (/) al inicio
         name: 'profile',
         component: () => import('../views/ProfileView.vue'),
         meta: { requiresAuth: true }
