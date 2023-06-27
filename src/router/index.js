@@ -5,7 +5,6 @@ import { useUserStore } from '../stores/authStore'
 const routes = [
   {
     path: '/',
-    name: 'home',
     component: () => import('../views/IndexView.vue')
   },
   {
@@ -77,7 +76,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // si no existe el token (se refrescó el sitio web) v2
-  if (requiredAuth || localStorage.getItem('user')) {
+  if (requiredAuth || sessionStorage.getItem('user')) {
     await userStore.refreshToken()
     if (userStore.token) {
       return next()
