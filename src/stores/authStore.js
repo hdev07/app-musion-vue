@@ -17,7 +17,7 @@ export const useUserStore = defineStore('user', () => {
       const { data } = await $axios.post('/auth/login', body)
       token.value = data.token
       expiresIn.value = data.expiresIn
-      localStorage.setItem('user', true)
+      sessionStorage.setItem('user', true)
       router.push({ name: 'home' })
       setTime()
     } catch (error) {
@@ -30,11 +30,11 @@ export const useUserStore = defineStore('user', () => {
       const { data } = await $axios.get('/auth/refresh')
       token.value = data.token
       expiresIn.value = data.expiresIn
-      localStorage.setItem('user', true)
+      sessionStorage.setItem('user', true)
       setTime()
     } catch (error) {
       console.error(error)
-      localStorage.removeItem('user')
+      sessionStorage.removeItem('user')
     }
   }
 
@@ -52,7 +52,7 @@ export const useUserStore = defineStore('user', () => {
     } finally {
       token.value = null
       expiresIn.value = null
-      localStorage.removeItem('user')
+      sessionStorage.removeItem('user')
     }
   }
 

@@ -12,7 +12,7 @@ onMounted(() => {
     ? 'smartphone'
     : ''
   setTimeout(() => {
-    const userLogged = localStorage.getItem('user')
+    const userLogged = sessionStorage.getItem('user')
     loading.value = false
     if (device.value === 'smartphone' && !userLogged) {
       router.push('/walkthrough')
