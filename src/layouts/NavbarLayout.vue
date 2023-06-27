@@ -13,26 +13,22 @@
           <div class="mt-3 flex justify-center">
             <vue-feather stroke-width="1" type="grid" />
           </div>
-          <p class="text-center mb-0 pt-1 font-light text-sm uppercase">
-            Inicio
-          </p>
+          <p class="text-center mb-0 pt-1 font-extralight text-xs">Inicio</p>
         </div>
       </RouterLink>
       <RouterLink to="/museums" class="w-1/5">
         <div
           class="mx-1"
           :class="{
-            'text-primary border-t-2 border-primary': activeTab === 'list',
-            'text-white': activeTab !== 'list'
+            'text-primary border-t-2 border-primary': activeTab === 'museums',
+            'text-white': activeTab !== 'museums'
           }"
-          @click="changeTab('list')"
+          @click="changeTab('museums')"
         >
           <div class="mt-3 flex justify-center">
             <vue-feather stroke-width="1" type="list" />
           </div>
-          <p class="text-center mb-0 pt-1 font-light text-sm uppercase">
-            Lista
-          </p>
+          <p class="text-center mb-0 pt-1 font-extralight text-xs">Lista</p>
         </div>
       </RouterLink>
       <RouterLink to="/map" class="w-1/5">
@@ -47,22 +43,22 @@
           <div class="mt-3 flex justify-center">
             <vue-feather stroke-width="1" type="map-pin" />
           </div>
-          <p class="text-center mb-0 pt-1 font-light text-sm uppercase">Mapa</p>
+          <p class="text-center mb-0 pt-1 font-extralight text-xs">Mapa</p>
         </div>
       </RouterLink>
       <RouterLink to="/favorites" class="w-1/5">
         <div
           class="mx-1"
           :class="{
-            'text-primary border-t-2 border-primary': activeTab === 'fav',
-            'text-white': activeTab !== 'fav'
+            'text-primary border-t-2 border-primary': activeTab === 'favorites',
+            'text-white': activeTab !== 'favorites'
           }"
-          @click="changeTab('fav')"
+          @click="changeTab('favorites')"
         >
           <div class="mt-3 flex justify-center">
             <vue-feather stroke-width="1" type="heart" />
           </div>
-          <p class="text-center mb-0 pt-1 font-light text-sm uppercase">Favs</p>
+          <p class="text-center mb-0 pt-1 font-extralight text-xs">Favs</p>
         </div>
       </RouterLink>
       <RouterLink to="/profile" class="w-1/5">
@@ -77,9 +73,7 @@
           <div class="mt-3 flex justify-center">
             <vue-feather stroke-width="1" type="user" />
           </div>
-          <p class="text-center mb-0 pt-1 font-light text-sm uppercase">
-            Perfil
-          </p>
+          <p class="text-center mb-0 pt-1 font-extralight text-xs">Perfil</p>
         </div>
       </RouterLink>
     </div>
