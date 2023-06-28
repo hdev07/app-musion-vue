@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
   const token = ref(null)
   const expiresIn = ref(null)
 
-  const access = async (body) => {
+  const login = async (body) => {
     try {
       const { data } = await $axios.post('/auth/login', body)
       token.value = data.token
@@ -21,7 +21,32 @@ export const useUserStore = defineStore('user', () => {
       router.push({ name: 'home' })
       setTime()
     } catch (error) {
-      console.error(error)
+      if (error.response) {
+        throw error.response.data
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log('Error', error.message)
+      }
+    }
+  }
+
+  const register = async (body) => {
+    try {
+      const { data } = await $axios.post('/auth/register', body)
+      token.value = data.token
+      expiresIn.value = data.expiresIn
+      localStorage.setItem('user', true)
+      router.push({ name: 'home' })
+      setTime()
+    } catch (error) {
+      if (error.response) {
+        throw error.response.data
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log('Error', error.message)
+      }
     }
   }
 
@@ -33,7 +58,13 @@ export const useUserStore = defineStore('user', () => {
       localStorage.setItem('user', true)
       setTime()
     } catch (error) {
-      console.error(error)
+      if (error.response) {
+        throw error.response.data
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log('Error', error.message)
+      }
       localStorage.removeItem('user')
     }
   }
@@ -48,7 +79,13 @@ export const useUserStore = defineStore('user', () => {
     try {
       await $axios.get('/auth/logout')
     } catch (error) {
-      console.error(error)
+      if (error.response) {
+        throw error.response.data
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log('Error', error.message)
+      }
     } finally {
       token.value = null
       expiresIn.value = null
@@ -59,7 +96,8 @@ export const useUserStore = defineStore('user', () => {
   return {
     token,
     expiresIn,
-    access,
+    login,
+    register,
     refreshToken,
     logout
   }

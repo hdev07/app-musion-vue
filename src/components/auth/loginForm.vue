@@ -9,14 +9,15 @@ const valid = ref(true)
 const loading = ref(false)
 const showPass = ref(false)
 const email = ref('hcruz0716@gmail.com')
+const password = ref('Qwerty123')
+const form = ref(null)
+const userStore = useUserStore()
+
 const emailRules = [
   (v) => !!v || 'Correo es requerido',
   (v) => /.+@.+\..+/.test(v) || 'Correo no válido'
 ]
-const password = ref('Qwerty123')
 const passwordRules = [(v) => !!v || 'Contraseña es requerida']
-const form = ref(null)
-const userStore = useUserStore()
 
 const validForm = async () => {
   const validValue = await form.value.validate()
@@ -31,7 +32,7 @@ const login = async () => {
       password: password.value
     }
 
-    await userStore.access(body)
+    await userStore.login(body)
   } catch (error) {
     console.error(error)
   } finally {
@@ -114,7 +115,7 @@ const resetForm = () => {
               Restablecer la contraseña
             </RouterLink>
           </div>
-          <SocialForm class="mt-10" />
+          <SocialForm class="mt-5" />
         </v-form>
       </div>
     </div>

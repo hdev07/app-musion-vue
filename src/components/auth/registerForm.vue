@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import SocialForm from './socialForm.vue'
 import SwitchForm from './switchForm.vue'
+import { useUserStore } from '@/stores/authStore.js'
 
 const from = ref('register')
 const valid = ref(true)
@@ -9,11 +10,12 @@ const loading = ref(false)
 const showPass = ref(false)
 const showRePass = ref(false)
 const name = ref('')
-const nameRules = [(v) => !!v || 'Nombre es requerido']
 const email = ref('')
 const password = ref('')
 const rePassword = ref('')
 const form = ref(null)
+const userStore = useUserStore()
+const nameRules = [(v) => !!v || 'Nombre es requerido']
 const emailRules = [
   (v) => !!v || 'Correo es requerido',
   (v) => /.+@.+\..+/.test(v) || 'Correo no válido'
@@ -26,12 +28,13 @@ const rePasswordRules = [
   (v) => !!v || 'Las contraseñas no coinciden',
   (v) => v === password.value || 'Las contraseñas no coinciden'
 ]
+
 const validForm = async () => {
   const validValue = await form.value.validate()
-  if (validValue) return login()
+  if (validValue) return register()
 }
 
-const login = async () => {
+const register = async () => {
   try {
     loading.value = true
     const body = {
@@ -40,7 +43,7 @@ const login = async () => {
       password: password.value,
       repassword: rePassword.value
     }
-    console.log('body :>> ', body)
+    await userStore.register(body)
   } catch (error) {
     console.error(error)
   } finally {
@@ -122,7 +125,7 @@ const resetForm = () => {
               Registrarme
             </v-btn>
           </div>
-          <SocialForm class="mt-10" />
+          <SocialForm class="mt-5" />
         </v-form>
       </div>
     </div>
