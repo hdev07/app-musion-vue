@@ -14,6 +14,8 @@ const email = ref('')
 const password = ref('')
 const rePassword = ref('')
 const form = ref(null)
+const showAlert = ref(false)
+const errorText = ref('')
 const userStore = useUserStore()
 const nameRules = [(v) => !!v || 'Nombre es requerido']
 const emailRules = [
@@ -45,11 +47,19 @@ const register = async () => {
     }
     await userStore.register(body)
   } catch (error) {
-    console.error(error)
+    alerNotify(error.errors[0])
   } finally {
     resetForm()
     loading.value = false
   }
+}
+
+const alerNotify = (error) => {
+  showAlert.value = true
+  errorText.value = error.msg
+  setTimeout(() => {
+    showAlert.value = false
+  }, 2500)
 }
 
 const resetForm = () => {
@@ -59,6 +69,11 @@ const resetForm = () => {
 
 <template>
   <div class="h-screen bg-background">
+    <div v-if="showAlert" class="w-full fixed">
+      <v-alert type="error" closable class="m-2">
+        {{ errorText }}
+      </v-alert>
+    </div>
     <p class="text-center text-3xl py-8">Registro</p>
     <div class="fixed bottom-0 w-full h-[75%] rounded-t-[30px] bg-secondary">
       <div>

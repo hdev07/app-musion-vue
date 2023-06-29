@@ -8,16 +8,21 @@ const from = ref('login')
 const valid = ref(true)
 const loading = ref(false)
 const showPass = ref(false)
-const email = ref('hcruz0716@gmail.com')
-const password = ref('Qwerty123')
+const email = ref('')
+const password = ref('')
 const form = ref(null)
+const showAlert = ref(false)
+const errorText = ref('')
 const userStore = useUserStore()
 
 const emailRules = [
   (v) => !!v || 'Correo es requerido',
   (v) => /.+@.+\..+/.test(v) || 'Correo no válido'
 ]
-const passwordRules = [(v) => !!v || 'Contraseña es requerida']
+const passwordRules = [
+  (v) => !!v || 'Contraseña es requerida',
+  (v) => /^.{4,}$/.test(v) || 'Contraseña es requerida '
+]
 
 const validForm = async () => {
   const validValue = await form.value.validate()
@@ -31,39 +36,34 @@ const login = async () => {
       email: email.value,
       password: password.value
     }
-
     await userStore.login(body)
   } catch (error) {
-    console.error(error)
+    alerNotify(error)
   } finally {
     resetForm()
     loading.value = false
   }
 }
-
-// const verMuseums = async () => {
-//   try {
-//     const { data } = await axios({
-//       method: 'GET',
-//       url: '/museums',
-//       headers: {
-//         Authorization: 'Bearer ' + token.value
-//       }
-//     })
-//     console.log('ver museums :>> ', data)
-//   } catch (error) {
-//     console.log('Bearer + token.value :>> ', 'Bearer ' + token.value)
-//     console.error(error)
-//   }
-// }
+const alerNotify = (error) => {
+  showAlert.value = true
+  errorText.value = error.msg
+  setTimeout(() => {
+    showAlert.value = false
+  }, 2500)
+}
 
 const resetForm = () => {
-  form.value.reset()
+  password.value = ''
 }
 </script>
 
 <template>
   <div class="h-screen bg-background">
+    <div v-if="showAlert" class="w-full fixed">
+      <v-alert type="error" closable class="m-2">
+        {{ errorText }}
+      </v-alert>
+    </div>
     <p class="text-center text-3xl py-8">Iniciar sesión</p>
     <div class="fixed bottom-0 w-full h-[60%] rounded-t-[30px] bg-secondary">
       <div>
