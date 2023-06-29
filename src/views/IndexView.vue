@@ -14,12 +14,14 @@ onMounted(() => {
   setTimeout(() => {
     const userLogged = localStorage.getItem('user')
     loading.value = false
-    if (device.value === 'smartphone' && !userLogged) {
-      router.push('/walkthrough')
-    } else {
-      router.push('/signin')
+    if (device.value === 'smartphone') {
+      if (!userLogged) {
+        router.push('/walkthrough')
+      } else {
+        router.push('/signin')
+      }
     }
-  }, 1500)
+  }, 1200)
 })
 </script>
 <template>
