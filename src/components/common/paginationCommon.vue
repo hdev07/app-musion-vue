@@ -15,8 +15,8 @@ defineProps({
 })
 </script>
 <template>
-  <div class="flex justify-around">
-    <div class="absolute justify-center w-90">
+  <div class="flex justify-around mb-14">
+    <div class="absoluted justify-center bottom-16 w-90">
       <v-pagination
         v-model="currentTx"
         :length="totalPages"
@@ -25,7 +25,6 @@ defineProps({
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class="my-4"
-        rounded="4"
       />
     </div>
   </div>
