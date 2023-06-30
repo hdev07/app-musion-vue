@@ -56,8 +56,18 @@ export const useMuseumsStore = defineStore('museum', () => {
   }
 
   const getCategories = async () => {
-    const { data } = await axios.get('/museums/categories')
-    categories.value = data
+    try {
+      const { data } = await $axios({
+        method: 'GET',
+        url: `/museums/categories`,
+        headers: {
+          Authorization: 'Bearer ' + userStore.token
+        }
+      })
+      categories.value = data.categories
+    } catch (error) {
+      console.error('error :>> ', error)
+    }
   }
 
   return {

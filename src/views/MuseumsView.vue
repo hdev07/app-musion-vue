@@ -1,40 +1,3 @@
-<template>
-  <v-container>
-    <SearchCommon @search="handleSearch" />
-    <div class="flex mx-3 mb-3 gap-2 overflow-x-auto">
-      <div
-        v-for="(category, i) in museumStore.categories"
-        :key="i"
-        @click="selectCategory(category.category)"
-      >
-        <v-chip
-          :class="{ primary: selectedCategories.includes(category.category) }"
-        >
-          {{
-            categories[i]?.category ? categories[i]?.category : 'Sin categoría'
-          }}
-        </v-chip>
-      </div>
-    </div>
-    <div v-for="museum in museumStore.museums" :key="museum.id">
-      <CardCommon
-        :id="museum?._id"
-        :title="museum?.name"
-        :description="museum?.description"
-        :location="returnLocationString(museum.address)"
-        @update-data="retrieveData"
-      />
-    </div>
-    <PaginationCommon
-      :perPage="museumStore.perPage"
-      :totalPages="museumStore.lastPage"
-      :currentPage="museumStore.currentPage"
-      @changePage="handleChangePage"
-    />
-    <div class="relative h-32" />
-  </v-container>
-</template>
-
 <script setup>
 import CardCommon from '@/components/common/cardCommon.vue'
 import PaginationCommon from '@/components/common/paginationCommon.vue'
@@ -50,8 +13,16 @@ const selectedCategories = ref([])
 const router = useRouter()
 
 onMounted(() => {
-  getCategories
-  fetchMuseums
+  getCategories()
+  if (router.currentRoute.value.name === 'museums') {
+    fetchMuseums()
+  }
+})
+
+watch(router.currentRoute, () => {
+  if (router.currentRoute.value.name === 'museums') {
+    fetchMuseums()
+  }
 })
 
 const fetchMuseums = async () => {
@@ -71,11 +42,11 @@ const getCategories = async () => {
   }
 }
 
-watch(router.currentRoute, () => {
+const retrieveData = () => {
   fetchMuseums()
-})
+}
 
-function handleSearch(search) {
+const handleSearch = (search) => {
   const query = { ...router.currentRoute.value.query, page: 1, search }
   router.push({ query })
 }
@@ -83,10 +54,6 @@ function handleSearch(search) {
 const handleChangePage = (page) => {
   const query = { ...router.currentRoute.value.query, page }
   router.push({ query })
-}
-
-function retrieveData() {
-  fetchMuseums()
 }
 
 const returnLocationString = (address) => {
@@ -98,7 +65,7 @@ const returnLocationString = (address) => {
   return locationString
 }
 
-async function selectCategory(category) {
+const selectCategory = async (category) => {
   const index = selectedCategories.value.indexOf(category)
 
   if (index > -1) {
@@ -109,6 +76,7 @@ async function selectCategory(category) {
 
   let query = {
     ...router.currentRoute.value.query,
+    page: 1,
     categories: selectedCategories.value.filter((cat) => cat !== '')
   }
 
@@ -121,7 +89,51 @@ async function selectCategory(category) {
     delete query.categories
   }
 
+  if (query.categories) {
+    query.categories = query.categories.map((cat) => encodeURIComponent(cat))
+  }
+
   router.push({ query })
-  console.log(selectedCategories.value)
 }
 </script>
+<template>
+  <v-container>
+    <SearchCommon @search="handleSearch" />
+    <div class="flex my-3 gap-2 overflow-hidden">
+      <div
+        v-for="category in museumStore.categories"
+        :key="category.name"
+        @click="selectCategory(category?.category)"
+      >
+        <v-chip
+          :color="
+            selectedCategories.includes(category?.category) ? 'primary' : ''
+          "
+          :variant="
+            selectedCategories.includes(category?.category)
+              ? 'elevated'
+              : 'tonal'
+          "
+        >
+          {{ category?.category ? category?.category : 'Sin categoría' }}
+        </v-chip>
+      </div>
+    </div>
+    <div v-for="museum in museumStore.museums" :key="museum.id">
+      <CardCommon
+        :id="museum?._id"
+        :title="museum?.name"
+        :description="museum?.description"
+        :location="returnLocationString(museum.address)"
+        @update-data="retrieveData"
+      />
+    </div>
+    <PaginationCommon
+      :perPage="museumStore.perPage"
+      :totalPages="museumStore.lastPage"
+      :currentPage="museumStore.currentPage"
+      @changePage="handleChangePage"
+    />
+    <div class="fixed h-32" />
+  </v-container>
+</template>
