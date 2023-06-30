@@ -8,7 +8,7 @@ const $axios = axios.create({
   withCredentials: true
 })
 
-export const useUserStore = defineStore('user', () => {
+export const useAuthStore = defineStore('auth', () => {
   const token = ref(null)
   const expiresIn = ref(null)
 

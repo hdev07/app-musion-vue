@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import SocialForm from './socialForm.vue'
 import SwitchForm from './switchForm.vue'
-import { useUserStore } from '@/stores/authStore.js'
+import { useAuthStore } from '@/stores/authStore.js'
 
 const from = ref('login')
 const valid = ref(true)
@@ -13,7 +13,7 @@ const password = ref('')
 const form = ref(null)
 const showAlert = ref(false)
 const errorText = ref('')
-const userStore = useUserStore()
+const authStore = useAuthStore()
 
 const emailRules = [
   (v) => !!v || 'Correo es requerido',
@@ -36,7 +36,7 @@ const login = async () => {
       email: email.value,
       password: password.value
     }
-    await userStore.login(body)
+    await authStore.login(body)
   } catch (error) {
     alerNotify(error)
   } finally {

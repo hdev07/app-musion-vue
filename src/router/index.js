@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NotFoundLayout from '../layouts/NotFoundLayout.vue'
-import { useUserStore } from '../stores/authStore'
+import { useAuthStore } from '../stores/authStore'
 
 const routes = [
   {
@@ -68,17 +68,17 @@ const router = createRouter({
 // Guarda de navegación para verificar la autenticación
 router.beforeEach(async (to, from, next) => {
   const requiredAuth = to.meta.requiresAuth
-  const userStore = useUserStore()
+  const authStore = useAuthStore()
 
   // si existe el token en memoria
-  if (userStore.token) {
+  if (authStore.token) {
     return next()
   }
 
   // si no existe el token (se refrescó el sitio web) v2
   if (requiredAuth || localStorage.getItem('user')) {
-    await userStore.refreshToken()
-    if (userStore.token) {
+    await authStore.refreshToken()
+    if (authStore.token) {
       return next()
     }
     return next('/signin')

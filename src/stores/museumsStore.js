@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
 import router from '../router'
-import { useUserStore } from './authStore.js'
+import { useAuthStore } from './authStore.js'
 
 const $axios = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL_BACK_END,
@@ -10,7 +10,7 @@ const $axios = axios.create({
 })
 
 export const useMuseumsStore = defineStore('museum', () => {
-  const userStore = useUserStore()
+  const authStore = useAuthStore()
   const museums = ref([])
   const museum = ref({})
   const perPage = ref()
@@ -25,7 +25,7 @@ export const useMuseumsStore = defineStore('museum', () => {
         method: 'GET',
         url: `/museums?${queryParams}`,
         headers: {
-          Authorization: 'Bearer ' + userStore.token
+          Authorization: 'Bearer ' + authStore.token
         }
       })
       currentPage.value = data.currentPage
@@ -61,7 +61,7 @@ export const useMuseumsStore = defineStore('museum', () => {
         method: 'GET',
         url: `/museums/categories`,
         headers: {
-          Authorization: 'Bearer ' + userStore.token
+          Authorization: 'Bearer ' + authStore.token
         }
       })
       categories.value = data.categories
