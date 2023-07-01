@@ -99,7 +99,7 @@ const selectCategory = async (category) => {
 <template>
   <v-container>
     <SearchCommon @search="handleSearch" />
-    <div class="flex my-3 gap-2 overflow-hidden">
+    <div class="flex my-3 gap-2 overflow-x-auto">
       <div
         v-for="category in museumStore.categories"
         :key="category.name"
