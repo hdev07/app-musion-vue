@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <h1>Inicio</h1>
-  </div>
+  <v-container class="container">
+    <Greating />
+  </v-container>
 </template>
 
-<script setup></script>
+<script setup>
+import Greating from '@/components/common/greeatingCommon.vue'
+</script>
+
+<style></style>
