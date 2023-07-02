@@ -1,53 +1,58 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import NotFoundLayout from '../layouts/NotFoundLayout.vue'
-import { useAuthStore } from '../stores/authStore'
+import NotFoundLayout from '@/layouts/NotFoundLayout.vue'
+import { useAuthStore } from '@/stores/authStore'
 
 const routes = [
   {
     path: '/',
-    component: () => import('../views/IndexView.vue')
+    component: () => import('@/views/IndexView.vue')
   },
   {
     path: '/signin',
     name: 'signin',
-    component: () => import('../views/LoginView.vue')
+    component: () => import('@/views/auth/LoginView.vue')
   },
   {
     path: '/signup',
     name: 'signup',
-    component: () => import('../views/RegisterView.vue')
+    component: () => import('@/views/auth/RegisterView.vue')
   },
   {
     path: '/walkthrough',
     name: 'walkthrough',
-    component: () => import('../views/WalkthroughView.vue')
+    component: () => import('@/views/auth/WalkthroughView.vue')
+  },
+  {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: () => import('@/views/auth/ForgotPasswordView.vue')
   },
   {
     path: '/',
-    component: () => import('../layouts/NavbarLayout.vue'),
+    component: () => import('@/layouts/NavbarLayout.vue'),
     children: [
       {
         path: '/home',
         name: 'home',
-        component: () => import('../views/HomeView.vue'),
+        component: () => import('@/views/home/HomeView.vue'),
         meta: { requiresAuth: true }
       },
       {
         path: '/museums',
         name: 'museums',
-        component: () => import('../views/MuseumsView.vue'),
+        component: () => import('@/views/home/MuseumsView.vue'),
         meta: { requiresAuth: true }
       },
       {
         path: '/favorites',
         name: 'favorites',
-        component: () => import('../views/FavoritesView.vue'),
+        component: () => import('@/views/home/FavoritesView.vue'),
         meta: { requiresAuth: true }
       },
       {
         path: '/profile',
         name: 'profile',
-        component: () => import('../views/ProfileView.vue'),
+        component: () => import('@/views/home/ProfileView.vue'),
         meta: { requiresAuth: true }
       }
     ]
