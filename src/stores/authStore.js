@@ -11,6 +11,8 @@ const $axios = axios.create({
 export const useAuthStore = defineStore('auth', () => {
   const token = ref(null)
   const expiresIn = ref(null)
+  const message = ref(null)
+  const status = ref(null)
 
   const login = async (body) => {
     try {
@@ -21,13 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
       router.push({ name: 'home' })
       setTime()
     } catch (error) {
-      if (error.response) {
-        throw error.response.data
-      } else if (error.request) {
-        console.log(error.request)
-      } else {
-        console.log('Error', error.message)
-      }
+      console.log('error :>> ', error)
     }
   }
 
@@ -40,13 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
       router.push({ name: 'home' })
       setTime()
     } catch (error) {
-      if (error.response) {
-        throw error.response.data
-      } else if (error.request) {
-        console.log(error.request)
-      } else {
-        console.log('Error', error.message)
-      }
+      console.log('error :>> ', error)
     }
   }
 
@@ -58,13 +48,8 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem('user', true)
       setTime()
     } catch (error) {
-      if (error.response) {
-        throw error.response.data
-      } else if (error.request) {
-        console.log(error.request)
-      } else {
-        console.log('Error', error.message)
-      }
+      console.log('error :>> ', error)
+
       localStorage.removeItem('user')
     }
   }
@@ -78,14 +63,9 @@ export const useAuthStore = defineStore('auth', () => {
   const logout = async () => {
     try {
       await $axios.get('/auth/logout')
+      router.push({ name: 'signin' })
     } catch (error) {
-      if (error.response) {
-        throw error.response.data
-      } else if (error.request) {
-        console.log(error.request)
-      } else {
-        console.log('Error', error.message)
-      }
+      console.log('error :>> ', error)
     } finally {
       token.value = null
       expiresIn.value = null
@@ -93,12 +73,41 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const requestResetPassword = async (body) => {
+    try {
+      const data = await $axios.post('/auth/reset-password/request', body)
+      message.value = data.data.msg
+      status.value = data.status
+    } catch (error) {
+      message.value = error.response.data.msg
+      status.value = error.response.status
+    }
+  }
+
+  const resetPassword = async (body) => {
+    try {
+      const data = await $axios.post('/auth/reset-password', body)
+      message.value = data.data.msg
+      status.value = data.status
+      setTimeout(() => {
+        router.push({ name: 'signin' })
+      }, 4000)
+    } catch (error) {
+      message.value = error.response.data.msg
+      status.value = error.response.status
+    }
+  }
+
   return {
     token,
     expiresIn,
+    message,
+    status,
     login,
     register,
     refreshToken,
-    logout
+    logout,
+    requestResetPassword,
+    resetPassword
   }
 })
