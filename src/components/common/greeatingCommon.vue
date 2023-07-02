@@ -16,7 +16,7 @@ const greeting = computed(() => {
   const currentHour = new Date().getHours()
 
   if (currentHour >= 6 && currentHour < 12) {
-    return `Buenos días ${userStore.user}`
+    return `Buenos días ${userStore.user.name}`
   } else if (currentHour >= 12 && currentHour < 20) {
     return `Buenas tardes ${userStore.user?.name}`
   } else {
