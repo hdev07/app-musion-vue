@@ -9,9 +9,8 @@ const musionThemeDark = {
   dark: true,
   colors: {
     primary: '#FF4081',
-    secondary: '#1A1A1A',
-    tertary: '#AEAEAE',
-    acent: '#212120'
+    secondary: '#212121',
+    background: '#1A1A1A'
   }
 }
 
