@@ -1,6 +1,7 @@
 <template>
   <GoogleMap
     style="width: 100vw; height: 100vh"
+    ref="mapRef"
     :api-key="mapConfig.apiKey"
     :center="center"
     :zoom="mapConfig.zoom"
@@ -47,12 +48,11 @@
 <script setup>
 import { GoogleMap, CustomControl } from 'vue3-google-map'
 import SearchCommon from '@/components/common/searchCommon.vue'
+import { ref, watch } from 'vue'
 
+let gmap = null
+const mapRef = ref(null)
 const center = { lat: 19.4324881, lng: -99.1425509 }
-
-const currentLocation = () => alert('Ubicacion Actual!')
-const zoomIn = () => alert('Zoom In')
-const zoomOut = () => alert('Zoom Out')
 const mapConfig = {
   apiKey: import.meta.env.VITE_API_KEY_MAPS,
   mapId: import.meta.env.VITE_MAP_ID,
@@ -69,5 +69,32 @@ const mapConfig = {
     },
     strictBounds: true
   }
+}
+
+watch(
+  () => mapRef.value?.ready,
+  (ready) => {
+    if (ready) {
+      gmap = mapRef.value.map
+    }
+  }
+)
+
+const zoomIn = () => {
+  if (mapRef.value) {
+    const currentZoom = gmap.getZoom()
+    gmap.setZoom(currentZoom + 1)
+  }
+}
+
+const zoomOut = () => {
+  if (mapRef.value) {
+    const currentZoom = gmap.getZoom()
+    gmap.setZoom(currentZoom - 1)
+  }
+}
+
+const currentLocation = () => {
+  console.log(' :>> ')
 }
 </script>
