@@ -75,6 +75,7 @@ const resetForm = () => {
               :rules="emailRules"
               :loading="loading"
               append-inner-icon="mdi-email-outline"
+              placeholder="jonhDue@example.com"
               type="email"
               label="Correo"
               color="primary"
@@ -109,7 +110,7 @@ const resetForm = () => {
           <div class="flex justify-center mt-3">
             <p class="text-sm">¿Olvidaste tu contraseña?</p>
             <RouterLink
-              to="/reset-password"
+              to="/forgot-password"
               class="text-sm text-primary underline pl-1"
             >
               Restablecer la contraseña

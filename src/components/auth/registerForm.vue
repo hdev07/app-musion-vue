@@ -95,6 +95,7 @@ const resetForm = () => {
               :rules="emailRules"
               :loading="loading"
               append-inner-icon="mdi-email-outline"
+              placeholder="jonhDue@example.com"
               type="email"
               label="Correo"
               color="primary"
