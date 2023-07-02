@@ -44,6 +44,12 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
+        path: '/map',
+        name: 'map',
+        component: () => import('@/views/home/MapView.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
         path: '/favorites',
         name: 'favorites',
         component: () => import('@/views/home/FavoritesView.vue'),
