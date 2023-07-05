@@ -1,6 +1,6 @@
 <template>
   <GoogleMap
-    style="width: 100vw; height: 95vh"
+    style="width: 100vw; height: 92vh"
     ref="mapRef"
     :api-key="mapConfig.apiKey"
     :center="center"
@@ -11,18 +11,8 @@
     :maxZoom="mapConfig.maxZoom"
     :minZoom="mapConfig.minZoom"
   >
-    <!-- <CustomControl position="BOTTOM_LEFT">
-      <v-card class="m-2 w-10 h-10">
-        <vue-feather
-          stroke-width="2"
-          type="crosshair"
-          class="m-2"
-          @click="currentLocation"
-        />
-      </v-card>
-    </CustomControl> -->
     <CustomControl position="RIGHT_BOTTOM">
-      <v-card class="mx-2 mb-6 w-10 h-20">
+      <v-card class="mx-2 w-10 h-20">
         <vue-feather
           stroke-width="2"
           type="zoom-in"
@@ -35,6 +25,16 @@
           type="zoom-out"
           class="m-2"
           @click="zoomOut"
+        />
+      </v-card>
+    </CustomControl>
+    <CustomControl position="RIGHT_BOTTOM">
+      <v-card class="m-2 w-10 h-10">
+        <vue-feather
+          stroke-width="2"
+          type="crosshair"
+          class="m-2"
+          @click="currentLocation"
         />
       </v-card>
     </CustomControl>
