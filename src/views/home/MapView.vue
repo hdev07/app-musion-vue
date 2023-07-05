@@ -1,6 +1,6 @@
 <template>
   <GoogleMap
-    style="width: 100vw; height: 100vh"
+    style="width: 100vw; height: 95vh"
     ref="mapRef"
     :api-key="mapConfig.apiKey"
     :center="center"
@@ -11,12 +11,18 @@
     :maxZoom="mapConfig.maxZoom"
     :minZoom="mapConfig.minZoom"
   >
-    <CustomControl position="TOP_RIGHT" class="inline-block w-100">
-      <SearchCommon class="m-2" />
-    </CustomControl>
-
-    <CustomControl position="RIGHT_BOTTOM" class="mb-16">
-      <v-card class="mx-2 w-10 h-20 flex">
+    <!-- <CustomControl position="BOTTOM_LEFT">
+      <v-card class="m-2 w-10 h-10">
+        <vue-feather
+          stroke-width="2"
+          type="crosshair"
+          class="m-2"
+          @click="currentLocation"
+        />
+      </v-card>
+    </CustomControl> -->
+    <CustomControl position="RIGHT_BOTTOM">
+      <v-card class="mx-2 mb-6 w-10 h-20">
         <vue-feather
           stroke-width="2"
           type="zoom-in"
@@ -32,22 +38,11 @@
         />
       </v-card>
     </CustomControl>
-    <CustomControl position="RIGHT_BOTTOM">
-      <v-card class="m-2 w-10 h-10 flex overflow-hidden">
-        <vue-feather
-          stroke-width="2"
-          type="crosshair"
-          class="m-2"
-          @click="currentLocation"
-        />
-      </v-card>
-    </CustomControl>
   </GoogleMap>
 </template>
 
 <script setup>
 import { GoogleMap, CustomControl } from 'vue3-google-map'
-import SearchCommon from '@/components/common/searchCommon.vue'
 import { ref, watch } from 'vue'
 
 let gmap = null
