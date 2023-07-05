@@ -87,9 +87,13 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useUserStore } from '@/stores/userStore.js'
 
+const userStore = useUserStore()
 const activeTab = ref('home')
 const route = useRoute()
+
+userStore.getUser()
 
 // Actualizar la pestaña activa basada en la ruta actual
 activeTab.value = route.name || 'home'

@@ -9,18 +9,15 @@ import { computed } from 'vue'
 import { useUserStore } from '@/stores/userStore.js'
 
 const userStore = useUserStore()
-
-userStore.getUser()
-
 const greeting = computed(() => {
   const currentHour = new Date().getHours()
 
   if (currentHour >= 6 && currentHour < 12) {
-    return `Buenos días ${userStore.user.name}`
+    return `Buenos días ${userStore?.user?.name}`
   } else if (currentHour >= 12 && currentHour < 20) {
-    return `Buenas tardes ${userStore.user?.name}`
+    return `Buenas tardes ${userStore?.user?.name}`
   } else {
-    return `Buenas noches ${userStore.user?.name}`
+    return `Buenas noches ${userStore?.user?.name}`
   }
 })
 </script>
