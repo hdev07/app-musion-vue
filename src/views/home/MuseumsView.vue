@@ -129,11 +129,12 @@ const selectCategory = async (category) => {
       />
     </div>
     <PaginationCommon
+      v-if="museumStore.totalPage >= 25"
       :perPage="museumStore.perPage"
       :totalPages="museumStore.lastPage"
       :currentPage="museumStore.currentPage"
       @changePage="handleChangePage"
     />
-    <div class="fixed h-32" />
+    <div class="my-16" />
   </v-container>
 </template>

@@ -15,7 +15,7 @@ defineProps({
 })
 </script>
 <template>
-  <div class="flex justify-around mb-14">
+  <div class="flex justify-around">
     <div class="absoluted justify-center bottom-16 w-90">
       <v-pagination
         v-model="currentTx"

@@ -12,6 +12,7 @@ const $axios = axios.create({
 export const useMuseumsStore = defineStore('museum', () => {
   const authStore = useAuthStore()
   const museums = ref([])
+  const museumsFavorites = ref([])
   const museum = ref({})
   const perPage = ref()
   const currentPage = ref()
@@ -70,6 +71,26 @@ export const useMuseumsStore = defineStore('museum', () => {
     }
   }
 
+  const getMuseumsFavorites = async (queryParams) => {
+    try {
+      const { data } = await $axios({
+        method: 'GET',
+        url: `/favorites?${queryParams}`,
+        headers: {
+          Authorization: 'Bearer ' + authStore.token
+        }
+      })
+      currentPage.value = data.currentPage
+      lastPage.value = data.lastPage
+      museumsFavorites.value = data.favorites
+      perPage.value = data.perPage
+      totalPage.value = data.total
+      console.log('data :>> ', data)
+    } catch (error) {
+      console.error('error :>> ', error)
+    }
+  }
+
   return {
     museums,
     museum,
@@ -78,10 +99,12 @@ export const useMuseumsStore = defineStore('museum', () => {
     currentPage,
     totalPage,
     categories,
+    museumsFavorites,
     getMuseums,
     getMuseum,
     updateMuseum,
     deleteMuseum,
-    getCategories
+    getCategories,
+    getMuseumsFavorites
   }
 })
