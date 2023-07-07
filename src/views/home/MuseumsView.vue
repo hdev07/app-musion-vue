@@ -61,7 +61,6 @@ const returnLocationString = (address) => {
     ${address?.addressLocality}
     ${address?.postalCode},
     ${address?.addressCountry}.`
-  console.log('address :>> ', address)
   return locationString
 }
 
