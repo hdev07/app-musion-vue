@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
-import router from '../router'
 import { useAuthStore } from './authStore.js'
 
 const $axios = axios.create({
@@ -22,9 +21,7 @@ export const useMuseumsStore = defineStore('museum', () => {
 
   const getMuseums = async (queryParams) => {
     try {
-      const { data } = await $axios({
-        method: 'GET',
-        url: `/museums?${queryParams}`,
+      const { data } = await $axios.get(`/museums?${queryParams}`, {
         headers: {
           Authorization: 'Bearer ' + authStore.token
         }
@@ -39,28 +36,35 @@ export const useMuseumsStore = defineStore('museum', () => {
     }
   }
 
+  const getAllMuseums = async () => {
+    try {
+      const { data } = await $axios.get(`/museums/all`, {
+        headers: {
+          Authorization: 'Bearer ' + authStore.token
+        }
+      })
+      console.log('data :>> ', data)
+    } catch (error) {
+      console.log('error :>> ', error)
+    }
+  }
+
   const getMuseum = async (id) => {
-    const { data } = await $axios.get(`/museums/${id}`)
-    museum.value = data
-  }
-
-  const updateMuseum = async (museum) => {
-    const { data } = await $axios.put(`/museums/${museum.id}`, museum)
-    router.push('/museums')
-    console.log(data)
-  }
-
-  const deleteMuseum = async (id) => {
-    const { data } = await $axios.delete(`/museums/${id}`)
-    router.push('/museums')
-    console.log(data)
+    try {
+      const { data } = await $axios.get(`/museums/${id}`, {
+        headers: {
+          Authorization: 'Bearer ' + authStore.token
+        }
+      })
+      museum.value = data
+    } catch (error) {
+      console.error('error :>> ', error)
+    }
   }
 
   const getCategories = async () => {
     try {
-      const { data } = await $axios({
-        method: 'GET',
-        url: `/museums/categories`,
+      const { data } = await $axios.get(`/museums/categories`, {
         headers: {
           Authorization: 'Bearer ' + authStore.token
         }
@@ -73,9 +77,7 @@ export const useMuseumsStore = defineStore('museum', () => {
 
   const getMuseumsFavorites = async (queryParams) => {
     try {
-      const { data } = await $axios({
-        method: 'GET',
-        url: `/favorites?${queryParams}`,
+      const { data } = await $axios.get(`/favorites?${queryParams}`, {
         headers: {
           Authorization: 'Bearer ' + authStore.token
         }
@@ -85,7 +87,6 @@ export const useMuseumsStore = defineStore('museum', () => {
       museumsFavorites.value = data.favorites
       perPage.value = data.perPage
       totalPage.value = data.total
-      console.log('data :>> ', data)
     } catch (error) {
       console.error('error :>> ', error)
     }
@@ -100,11 +101,10 @@ export const useMuseumsStore = defineStore('museum', () => {
     totalPage,
     categories,
     museumsFavorites,
-    getMuseums,
-    getMuseum,
-    updateMuseum,
-    deleteMuseum,
     getCategories,
+    getMuseums,
+    getAllMuseums,
+    getMuseum,
     getMuseumsFavorites
   }
 })
