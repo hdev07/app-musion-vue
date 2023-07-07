@@ -2,7 +2,7 @@
   <v-container>
     <div class="mt-6">
       <img
-        src="https://i.pravatar.cc/300"
+        src="@/assets/icons/app.musion.svg"
         alt="img_avatar"
         class="rounded-full flex mx-auto w-1/2"
       />
