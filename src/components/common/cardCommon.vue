@@ -2,39 +2,51 @@
 defineProps({
   id: { type: String, default: '0' },
   title: { type: String, default: 'Museum Title' },
+  category: { type: String, default: 'Museum Category' },
   description: { type: String, default: 'Museum Descripcion' },
   location: { type: String, default: 'Museum Location' }
 })
+
+const isMuseumFavorite = (id) => {}
+const detaillsMuseums = (id) => {
+  console.log('id :>> ', id)
+}
 </script>
+
 <template>
-  <div class="flex h-1/4 bg-secondary shadow-lg rounded mt-3">
-    <div class="w-1/4 m-2 flex">
-      <vue-feather type="grid" size="80" />
-    </div>
-    <div class="w-3/4 my-3 mr-3">
-      <div class="flex justify-between content-center mb-1">
-        <p class="mb-0 text-md">{{ title }}</p>
-        <div @click.stop="handleFavorite(id)" class="">
-          <vue-feather type="heart" stroke="#ff4083" fill="#ff4083" />
-        </div>
+  <v-card class="mt-3" @click="detaillsMuseums(id)">
+    <template v-slot:title>
+      <div class="flex justify-between items-center">
+        <span class="overflow-auto w-10/12">
+          {{ title }}
+        </span>
+        <vue-feather
+          type="heart"
+          :fill="isMuseumFavorite(id) ? '#ff4083' : 'none'"
+          stroke="#ff4083"
+        />
+      </div>
+    </template>
+    <template v-slot:subtitle>
+      <v-chip color="primary" size="small" variant="tonal" color-text="white">
+        {{ category ? category : 'Sin Categoría' }}
+      </v-chip>
+    </template>
+    <template v-slot:text>
+      {{ description }}
+      <div class="flex items-center">
+        <v-rating
+          :model-value="3.8"
+          color="primary"
+          density="compact"
+          half-increments
+          readonly
+        />
+        <div class="text-grey ml-1">4.5 (413)</div>
       </div>
       <div>
-        <p class="text-xs mb-1">
-          {{ description }}
-        </p>
+        <p>{{ location }}</p>
       </div>
-      <div class="flex mb-1">
-        <vue-feather type="star" fill="#ff4083" stroke="#ff4083"></vue-feather>
-        <vue-feather type="star" fill="#ff4083" stroke="#ff4083"></vue-feather>
-        <vue-feather type="star" fill="#ff4083" stroke="#ff4083"></vue-feather>
-        <vue-feather type="star" stroke="#ff4083"></vue-feather>
-        <vue-feather type="star" stroke="#ff4083"></vue-feather>
-      </div>
-      <div>
-        <p class="text-xs mb-1">
-          {{ location }}
-        </p>
-      </div>
-    </div>
-  </div>
+    </template>
+  </v-card>
 </template>
