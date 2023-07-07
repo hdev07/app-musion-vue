@@ -59,9 +59,9 @@ const handleChangePage = (page) => {
 const returnLocationString = (address) => {
   let locationString = `${address?.streetAddress}
     ${address?.addressLocality}
-    ${address?.postalCode}
-    ${address?.addressCountry}
-    ${address?.city}`
+    ${address?.postalCode},
+    ${address?.addressCountry}.`
+  console.log('address :>> ', address)
   return locationString
 }
 
@@ -121,9 +121,10 @@ const selectCategory = async (category) => {
     </div>
     <div v-for="museum in museumStore.museums" :key="museum.id">
       <CardCommon
-        :id="museum?._id"
-        :title="museum?.name"
-        :description="museum?.description"
+        :id="museum._id"
+        :title="museum.name"
+        :category="museum.category"
+        :description="museum.description"
         :location="returnLocationString(museum.address)"
         @update-data="retrieveData"
       />

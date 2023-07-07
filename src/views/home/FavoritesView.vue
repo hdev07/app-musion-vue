@@ -48,9 +48,8 @@ const handleChangePage = (page) => {
 const returnLocationString = (address) => {
   let locationString = `${address?.streetAddress}
     ${address?.addressLocality}
-    ${address?.postalCode}
-    ${address?.addressCountry}
-    ${address?.city}`
+    ${address?.postalCode},
+    ${address?.addressCountry}.`
   return locationString
 }
 </script>
@@ -59,9 +58,10 @@ const returnLocationString = (address) => {
     <SearchCommon @search="handleSearch" />
     <div v-for="museum in museumStore.museumsFavorites" :key="museum.id">
       <CardCommon
-        :id="museum?._id"
-        :title="museum?.name"
-        :description="museum?.description"
+        :id="museum._id"
+        :title="museum.name"
+        :category="museum.category"
+        :description="museum.description"
         :location="returnLocationString(museum.address)"
         @update-data="retrieveData"
       />
