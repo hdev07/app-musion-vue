@@ -1,6 +1,9 @@
 <template>
   <div class="flex justify-between items-center">
     <p class="text-xl mb-0 font-bold">¡{{ greeting }}!</p>
+    <RouterLink to="/profile">
+      <vue-feather stroke-width="2" type="settings" />
+    </RouterLink>
   </div>
 </template>
 
