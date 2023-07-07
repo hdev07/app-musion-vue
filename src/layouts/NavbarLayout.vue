@@ -89,13 +89,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore.js'
 
 const userStore = useUserStore()
 const activeTab = ref('home')
 const route = useRoute()
+const router = useRouter()
 
 userStore.getUser()
 
@@ -104,4 +105,11 @@ activeTab.value = route.name || 'home'
 function changeTab(tab) {
   activeTab.value = tab
 }
+
+watch(
+  () => route.name,
+  (newRouteName) => {
+    activeTab.value = newRouteName || 'home'
+  }
+)
 </script>
