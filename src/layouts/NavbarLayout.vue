@@ -58,7 +58,11 @@
             @click="changeTab('favorites')"
           >
             <div class="mt-3 flex justify-center">
-              <vue-feather stroke-width="1" type="heart" />
+              <vue-feather
+                stroke-width="1"
+                type="heart"
+                :fill="activeTab === 'favorites' ? '#ff4083' : '#212121'"
+              />
             </div>
             <p class="text-center mb-0 pt-1 font-extralight text-xs">Favs</p>
           </div>
@@ -95,7 +99,6 @@ const route = useRoute()
 
 userStore.getUser()
 
-// Actualizar la pestaña activa basada en la ruta actual
 activeTab.value = route.name || 'home'
 
 function changeTab(tab) {
