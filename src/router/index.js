@@ -44,9 +44,21 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
+        path: '/museums/:id',
+        name: 'museums/',
+        component: () => import('@/views/home/museums/MuseumsView.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
         path: '/map',
         name: 'map',
         component: () => import('@/views/home/MapView.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/map/routes',
+        name: 'routes',
+        component: () => import('@/views/home/routes/RouteView.vue'),
         meta: { requiresAuth: true }
       },
       {
