@@ -49,14 +49,14 @@ export const useMuseumsStore = defineStore('museum', () => {
     }
   }
 
-  const getMuseum = async (id) => {
+  const getMuseumById = async (id) => {
     try {
       const { data } = await $axios.get(`/museums/${id}`, {
         headers: {
           Authorization: 'Bearer ' + authStore.token
         }
       })
-      museum.value = data
+      museum.value = data.museum
     } catch (error) {
       console.error('error :>> ', error)
     }
@@ -104,7 +104,7 @@ export const useMuseumsStore = defineStore('museum', () => {
     getCategories,
     getMuseums,
     getAllMuseums,
-    getMuseum,
+    getMuseumById,
     getMuseumsFavorites
   }
 })
