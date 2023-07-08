@@ -27,9 +27,9 @@
             @click="changeTab('museums')"
           >
             <div class="mt-3 flex justify-center">
-              <vue-feather stroke-width="1" type="list" />
+              <vue-feather stroke-width="1" type="search" />
             </div>
-            <p class="text-center mb-0 pt-1 font-extralight text-xs">Lista</p>
+            <p class="text-center mb-0 pt-1 font-extralight text-xs">Museos</p>
           </div>
         </RouterLink>
         <RouterLink to="/map" class="w-1/5">
@@ -87,20 +87,18 @@
   </div>
   <RouterView />
 </template>
-
 <script setup>
 import { ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/userStore.js'
 
 const userStore = useUserStore()
 const activeTab = ref('home')
 const route = useRoute()
-const router = useRouter()
 
 userStore.getUser()
 
-activeTab.value = route.name || 'home'
+activeTab.value = getActiveTab(route)
 
 function changeTab(tab) {
   activeTab.value = tab
@@ -108,8 +106,24 @@ function changeTab(tab) {
 
 watch(
   () => route.name,
-  (newRouteName) => {
-    activeTab.value = newRouteName || 'home'
+  () => {
+    activeTab.value = getActiveTab(route)
   }
 )
+
+function getActiveTab(route) {
+  const subrouteList = '/museums/:id'
+  const subrouteMap = '/map/routes'
+  const subrouteProfile = '/profile/settings'
+
+  if (route.path.startsWith(subrouteList)) {
+    return 'list'
+  } else if (route.path.startsWith(subrouteMap)) {
+    return 'map'
+  } else if (route.path.startsWith(subrouteProfile)) {
+    return 'profile'
+  } else {
+    return route.name || 'home'
+  }
+}
 </script>
