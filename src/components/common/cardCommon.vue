@@ -1,4 +1,6 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
 defineProps({
   id: { type: String, default: '0' },
   title: { type: String, default: 'Museum Title' },
@@ -6,10 +8,11 @@ defineProps({
   description: { type: String, default: 'Museum Descripcion' },
   location: { type: String, default: 'Museum Location' }
 })
-
+const router = useRouter()
 const isMuseumFavorite = (id) => {}
 const detaillsMuseums = (id) => {
   console.log('id :>> ', id)
+  router.push(`/museums/${id}`)
 }
 </script>
 
@@ -39,6 +42,7 @@ const detaillsMuseums = (id) => {
           :model-value="3.8"
           color="primary"
           density="compact"
+          size="small"
           half-increments
           readonly
         />
