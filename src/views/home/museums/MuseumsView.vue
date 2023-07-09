@@ -39,34 +39,33 @@
         />
 
         <div class="text-grey ml-1">
-          {{ museumStore?.museum?.rating?.average }} (
-          {{ museumStore?.museum?.rating?.total }}
-          )
+          {{ museumStore?.museum?.rating?.average.toFixed(1) }} ({{
+            museumStore?.museum?.rating?.count
+          }})
         </div>
       </div>
 
-      <div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>
+      <div class="my-2">
+        {{ museumStore?.museum?.category }}
+      </div>
 
       <div>
-        Small plates, salads & sandwiches - an intimate setting with 12 indoor
-        seats plus patio seating.
+        {{ museumStore?.museum?.description }}
       </div>
     </v-card-text>
 
     <v-divider class="mx-4 mb-1"></v-divider>
 
-    <v-card-title>Tonight's availability</v-card-title>
+    <v-card-title>Direccion</v-card-title>
 
-    <div class="px-4"></div>
+    <div class="px-4">
+      {{ returnLocationString(museumStore?.museum?.address) }}
+    </div>
 
-    <!-- <v-card-actions>
-      <v-btn color="deep-purple-lighten-2" variant="text" @click="reserve">
-        Reserve
-      </v-btn>
-    </v-card-actions> -->
+    <v-card-actions>
+      <v-btn color="primary" variant="outlined"> Agregar a la ruta </v-btn>
+    </v-card-actions>
   </v-card>
-
-  {{ museumStore.museum }}
 </template>
 
 <script setup>
@@ -90,6 +89,14 @@ getMuseumById()
 import { ref } from 'vue'
 
 const loading = ref(false)
+
+const returnLocationString = (address) => {
+  let locationString = `${address?.streetAddress}
+    ${address?.addressLocality}
+    ${address?.postalCode},
+    ${address?.addressCountry}.`
+  return locationString
+}
 </script>
 
 <style></style>
