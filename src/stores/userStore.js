@@ -23,7 +23,7 @@ export const useUserStore = defineStore('user', () => {
       })
       user.value = data
     } catch (error) {
-      console.log(error)
+      console.error('error :>>', error)
     }
   }
   return {

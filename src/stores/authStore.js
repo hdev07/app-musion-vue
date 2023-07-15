@@ -23,7 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
       router.push({ name: 'home' })
       setTime()
     } catch (error) {
-      console.log('error :>> ', error)
+      console.error('error :>> ', error)
     }
   }
 
@@ -36,7 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
       router.push({ name: 'home' })
       setTime()
     } catch (error) {
-      console.log('error :>> ', error)
+      console.error('error :>> ', error)
     }
   }
 
@@ -48,7 +48,7 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem('user', true)
       setTime()
     } catch (error) {
-      console.log('error :>> ', error)
+      console.error('error :>> ', error)
 
       localStorage.removeItem('user')
     }
@@ -65,7 +65,7 @@ export const useAuthStore = defineStore('auth', () => {
       await $axios.get('/auth/logout')
       router.push({ name: 'signin' })
     } catch (error) {
-      console.log('error :>> ', error)
+      console.error('error :>> ', error)
     } finally {
       token.value = null
       expiresIn.value = null
